@@ -1,22 +1,32 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import SignupForm from './components/Signup';
-import LoginForm from './components/Login';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Navbar from '.common/Navbar'
+import Dashboard from './components/Dashboard';
+import Settings from './components/Settings';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#dc004e',
+    },
+  },
+});
 
 function App() {
   return (
-    <Router>
-      <div>
-        <nav>
-          <Link to="/login">Login</Link> | <Link to="/signup">Signup</Link>
-        </nav>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Navbar />
         <Routes>
-          <Route path="/signup" element={<SignupForm />} />
-          <Route path="/login" element={<LoginForm />} />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
-      </div>
-    </Router>
+      </Router>
+    </ThemeProvider>
   );
 }
 
